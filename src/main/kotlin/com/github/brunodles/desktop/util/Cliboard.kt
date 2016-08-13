@@ -28,7 +28,6 @@ fun Clipboard.getClipboardText(): String {
         }
     }
     try {
-
         return result.encondeInto(ENCODING)
     } catch (ex: UnsupportedEncodingException) {
     }

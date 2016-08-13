@@ -20,6 +20,7 @@ class ClipboardController : ClipboardOwner {
             try {
                 Thread.sleep(1000)
             } catch(e: InterruptedException) {
+                break
             }
 
         }
