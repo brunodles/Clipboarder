@@ -17,7 +17,10 @@ class ClipboardController : ClipboardOwner {
         while (!Thread.interrupted()) {
             val clip = clipboard.getClipboardText()
             onNewValue(clip)
-            Thread.sleep(1000)
+            try {
+                Thread.sleep(1000)
+            } catch(e: InterruptedException) {
+            }
 
         }
     });

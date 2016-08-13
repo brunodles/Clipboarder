@@ -7,5 +7,8 @@ import com.github.brunodles.desktop.util.ClipboardController
  */
 
 fun main(args: Array<String>) {
-    ClipboardController().start()
+    val controller = ClipboardController()
+    controller.start()
+    Thread.sleep(60000)
+    controller.stop()
 }
