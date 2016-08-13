@@ -9,7 +9,8 @@ import java.util.*
  */
 
 fun main(args: Array<String>) {
-    val controller = ClipboardController()
+
+    val controller = ClipboardController() { txt -> println(txt) }
     controller.start()
     val format = SimpleDateFormat("HH:mm:ss")
     println("Start ${format.format(Date())}")

@@ -9,11 +9,12 @@ import java.awt.datatransfer.Transferable
 /**
  * Created by bruno on 13/08/16.
  */
-class ClipboardController : ClipboardOwner {
 
-    val clipboard = Toolkit.getDefaultToolkit().systemClipboard
-    var clipValue = ""
-    val thread = Thread(Runnable {
+class ClipboardController(val valueClipboardListener: (String) -> Unit) : ClipboardOwner {
+
+    private val clipboard = Toolkit.getDefaultToolkit().systemClipboard
+    private var clipValue = ""
+    private val thread = Thread(Runnable {
         while (!Thread.interrupted()) {
             val clip = clipboard.getClipboardText()
             onNewValue(clip)
@@ -22,10 +23,9 @@ class ClipboardController : ClipboardOwner {
             } catch(e: InterruptedException) {
                 break
             }
-
         }
     });
-    val flavorListener = FlavorListener { onNewValue(clipboard.getClipboardText()) }
+    private val flavorListener = FlavorListener { onNewValue(clipboard.getClipboardText()) }
 
     fun start() {
         clipboard.addFlavorListener(flavorListener)
@@ -41,12 +41,11 @@ class ClipboardController : ClipboardOwner {
     private fun onNewValue(clip: String) {
         if (clip != clipValue) {
             clipValue = clip
-            println(clip)
+            valueClipboardListener.invoke(clip)
         }
     }
 
     override fun lostOwnership(clipboard: Clipboard?, contents: Transferable?) {
         println("lostOwnership")
     }
-
 }
