@@ -29,7 +29,7 @@ fun Clipboard.getClipboardText(): String {
     }
     try {
 
-        return result.toByteArray().toString(Charset.forName(ENCODING))
+        return result.encondeInto(ENCODING)
     } catch (ex: UnsupportedEncodingException) {
     }
     return result
@@ -41,7 +41,7 @@ fun Clipboard.clearClipBoard(owner: ClipboardOwner) {
 
 fun Clipboard.setClipboardText(text: String, owner: ClipboardOwner) {
     try {
-        setContents(StringSelection(text.toByteArray().toString(Charset.forName(ENCODING))), owner)
+        setContents(StringSelection(text.encondeInto(ENCODING)), owner)
     } catch (ex: UnsupportedEncodingException) {
         setContents(StringSelection(text), owner)
     }
