@@ -1,5 +1,6 @@
 package com.github.brunodles.desktop.util
 
+import com.github.brunodles.clipboarder.FileDao
 import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.ClipboardOwner
@@ -12,7 +13,7 @@ import java.awt.datatransfer.Transferable
 
 class ClipboardController(val valueClipboardListener: (String) -> Unit) : ClipboardOwner {
 
-    private val clipboard = Toolkit.getDefaultToolkit().systemClipboard
+    val clipboard = Toolkit.getDefaultToolkit().systemClipboard
     private var clipValue = ""
     private val thread = Thread(Runnable {
         while (!Thread.interrupted()) {
@@ -47,5 +48,13 @@ class ClipboardController(val valueClipboardListener: (String) -> Unit) : Clipbo
 
     override fun lostOwnership(clipboard: Clipboard?, contents: Transferable?) {
         println("lostOwnership")
+    }
+
+    fun setText(text: String) {
+        clipboard.setClipboardText(text, this)
+    }
+
+    fun cleanText() {
+        clipboard.clearClipBoard(this)
     }
 }

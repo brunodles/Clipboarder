@@ -8,9 +8,9 @@ import java.util.*
 class InputReader(val exitCommand: String) {
 
     private val scanner = Scanner(System.`in`)
-    private val commands: HashMap<Regex, () -> Unit> = HashMap()
+    private val commands: HashMap<Regex, (result : MatchResult) -> Unit> = HashMap()
 
-    fun add(command: Regex, action: () -> Unit): InputReader {
+    fun add(command: Regex, action: (result : MatchResult) -> Unit): InputReader {
         commands.put(command, action)
         return this
     }
@@ -20,7 +20,8 @@ class InputReader(val exitCommand: String) {
             val input = scanner.nextLine()
             if ("$exitCommand".equals(input)) break
             commands.forEach { command, action ->
-                if (command.matches(input)) action.invoke()
+                val find = command.find(input)
+                if (find != null) action.invoke(find)
             }
         }
     }
