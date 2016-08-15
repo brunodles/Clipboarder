@@ -1,5 +1,6 @@
 package com.github.brunodles.desktop.util
 
+import com.github.brunodles.kotlin.encondeInto
 import java.awt.Toolkit
 import java.awt.datatransfer.*
 import java.io.IOException
