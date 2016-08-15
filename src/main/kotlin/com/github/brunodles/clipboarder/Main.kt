@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     println("Start ${format.format(Date())}")
 
     InputReader("exit")
-            .add(Regex("list"), { fileDao.list().forEach { name, s -> println("$name -> $s") } })
+            .add(Regex("list"), { fileDao.list().forEach { name, s -> println("$name -> ${s.joinToString(" ")}") } })
             .start()
 
     println("Stop ${format.format(Date())}")

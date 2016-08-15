@@ -16,11 +16,11 @@ class FileDao(val dirPath : String) {
         }
     }
 
-    fun list(): HashMap<String, String> {
+    fun list(): HashMap<String, List<String>> {
         val list = File(dirPath).list()
-        val result = HashMap<String, String>()
+        val result = HashMap<String, List<String>>()
         list.forEach { f ->
-            result.put(f, File("$dirPath/$f").readLines().joinToString(separator = " "))
+            result.put(f, File("$dirPath/$f").readLines())
         }
         return result
     }
