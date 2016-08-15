@@ -22,10 +22,15 @@ fun main(args: Array<String>) {
     InputReader("exit")
             .add(Regex("list"), ::list)
             .add(Regex("apply (\\d+)"), ::apply)
+            .add(Regex("clear"), ::clear)
             .start()
 
     println("Stop ${format.format(Date())}")
     controller.stop()
+}
+
+fun clear(matchResult: MatchResult) {
+    controller.cleanText()
 }
 
 fun apply(matchResult: MatchResult) {
